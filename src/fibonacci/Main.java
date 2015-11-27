@@ -11,18 +11,45 @@ public class Main {
 		n_arr[1] = n_arr[2] = 1;
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
-		System.out.println(recFib_N(n));
+		System.out.println(iterFib_N(n));
+		System.out.println(iterFib_N_v2(n));
+		System.out.println(iterFib_N_v3(n));
 		sc.close();
 	}
 
-	public static int recFib_N(int n) {
-		if (n_lastN >= n)
-			return n_arr[n];
-		else {
-			n_arr[n] = (recFib_N(n - 1) + recFib_N(n - 2));
-			n_lastN = n;
-			return n_arr[n];
+	public static int iterFib_N(int n) {
+		int i = 0, j = 1, k = 0;
+		while (n > 0) {
+			n--;
+			k = i + j;
+			i = j;
+			j = k;
 		}
+		return j;
 	}
 
+	public static int iterFib_N_v2(int n) {
+		int I = 0, J = 1;
+		while (n > 0) {
+			n--;
+			J = I + J;
+			I = J - I;
+		}
+		return J;
+	}
+
+	public static int iterFib_N_v3(int n) {
+		int I = 0, J = 1;
+		if (n_lastN > n) {
+			return n_arr[n];
+		} else {
+			while (n > 0) {
+				n--;
+				J = I + J;
+				I = J - I;
+				n_arr[J] = J;
+			}
+		}
+		return J;
+	}
 }
